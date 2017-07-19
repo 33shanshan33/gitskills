@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<style type=text/css>
+	tr, td{border: 1px solid #000;}
+
+	</style>
+</head>
+
+<body>
+	<input type="button" value="获取" id="getData">
+</body>
+
+</html>
+<script>
+document.querySelector('#getData').onclick = function() {
+	//alert(1)
+	var ajax = new XMLHttpRequest();
+	ajax.open('post', 'getstars.php');
+	ajax.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	ajax.send();
+	ajax.onreadystatechange = function() {
+		if (ajax.readyState == 4 && ajax.status == 200) {
+			//console.log(ajax.responseText);
+			// 异步对象中专门的属性获取xml       //
+			//console.log(ajax.responseXML);
+			//console.log(ajax.responseXML.querySelectorAll('person'));
+			var personList = ajax.responseXML.querySelectorAll('person')
+			var str = '';
+			str += '<table>';
+			for (var i = 0; i < p.ersonList.length; i++) {
+				//console.log(personList.length)
+				var $curPerson = personList[i];
+				// console.log($curPerson.querySelector('name').innerHTML);
+				// console.log($curPerson.querySelector('path').innerHTML);
+				// console.log($curPerson.querySelector('skill').innerHTML);
+				//<img src="' + $curPerson.querySelector('path').innerHTML + '" >
+				str += '<tr>';
+				str += '<td>' + $curPerson.querySelector('name').innerHTML + '</td>';
+				str += '<td><img src= "'+$curPerson.querySelector('path').innerHTML +'"/></td>';
+				str += '<td>' + $curPerson.querySelector('skill').innerHTML + '</td>';
+				str += '</tr>';
+
+
+
+			};
+			str += '</table>'
+			console.log(str);
+			document.body.innerHTML = str
+
+
+
+
+
+
+
+
+		};
+
+	}
+
+
+}
+</script>
